@@ -3,11 +3,13 @@
 import * as vscode from 'vscode';
 import { getLinesIcon, getMUIIconsImports } from './editor_scanning';
 import { getIconSVGAbsulotePath } from './backend';
+import {DecorationsHolder} from './decorationsHolder';
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-	const applyIcon = async (editor: vscode.TextEditor | undefined)  => {
+    const decorationsHolder = new DecorationsHolder();
+	const applyIcons = async (editor: vscode.TextEditor | undefined)  => {
         if (!editor) {return;}
 
         const text = editor.document.getText();
@@ -38,24 +40,37 @@ export function activate(context: vscode.ExtensionContext) {
 					color: 'blue'
 				});
 				editor.setDecorations(iconDecorationType, [decoration]);
+                decorationsHolder.add(iconDecorationType);
             }
         }
     };
-	console.log("registering mui-icons-preview");
+
+    const handleTextChange = async (editor: vscode.TextEditor | undefined) =>{
+        // remove old icons
+        const oldDecorations = decorationsHolder.popAll();
+        oldDecorations.forEach((decorationType)=>{
+            editor?.setDecorations(decorationType, []);
+        });
+        // add the new ones
+        applyIcons(editor);
+    };
+
+    console.log("registering mui-icons-preview callbacks");
+
     // Apply icons when the active editor changes
-    vscode.window.onDidChangeActiveTextEditor(applyIcon);
+    vscode.window.onDidChangeActiveTextEditor(handleTextChange);
 
     // Apply icons when the text in the document changes
     vscode.workspace.onDidChangeTextDocument(event => {
         const editor = vscode.window.activeTextEditor;
         if (editor && event.document === editor.document) {
-            applyIcon(editor);
+            handleTextChange(editor);
         }
     });
 
     // Apply icons on initial activation
     if (vscode.window.activeTextEditor) {
-        applyIcon(vscode.window.activeTextEditor);
+        handleTextChange(vscode.window.activeTextEditor);
     }
 }
 

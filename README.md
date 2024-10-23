@@ -34,7 +34,7 @@ This extension contributes the following settings:
 ## Known Issues
 
 - Performance may slow down in large files with many decorations.
-- Icons decorations are not removed when you delete the code.
+
 - Icons color doesn't change accourding to the editor theme.
 
 ## Release Notes
@@ -43,3 +43,6 @@ This extension contributes the following settings:
 
 Initial release of `mui-icons-preview` with basic functionality for displaying icons in the gutter.
 
+### 1.0.1
+bug fix:
+removing icons after the code is removed.
