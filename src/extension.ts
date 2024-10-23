@@ -6,10 +6,8 @@ import { getIconSVGAbsulotePath } from './backend';
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
-export function activate(context: vscode.ExtensionContext) {	
-
+export function activate(context: vscode.ExtensionContext) {
 	const applyIcon = async (editor: vscode.TextEditor | undefined)  => {
-		console.log("applyicon");
         if (!editor) {return;}
 
         const text = editor.document.getText();
@@ -20,8 +18,8 @@ export function activate(context: vscode.ExtensionContext) {
 			return;
 		}
 
-        const lines = text.split('\n'); 
-        
+        const lines = text.split('\n');
+
 		for (const [index, line] of lines.entries())
         {
 			const lineIcon = getLinesIcon(line, importedIcons);
@@ -43,7 +41,7 @@ export function activate(context: vscode.ExtensionContext) {
             }
         }
     };
-	console.log("register");
+	console.log("registering mui-icons-preview");
     // Apply icons when the active editor changes
     vscode.window.onDidChangeActiveTextEditor(applyIcon);
 

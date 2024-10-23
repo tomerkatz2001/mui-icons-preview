@@ -20,7 +20,7 @@ export function getLinesIcon(line: string, iconsBank: string[])
 {
     for(const icon of iconsBank)
     {
-        if (line.includes(icon))
+        if (line.includes(icon) && !line.includes("import"))
         {
             return icon;
         }
