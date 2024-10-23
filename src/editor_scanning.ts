@@ -18,9 +18,12 @@ export function getMUIIconsImports(fileContent: string)
 
 export function getLinesIcon(line: string, iconsBank: string[])
 {
-    for(const icon of iconsBank)
+    const sortedIconsBankByLength = iconsBank.sort((a, b) => b.length - a.length);
+
+    for(const icon of sortedIconsBankByLength)
     {
-        if (line.includes(icon) && !line.includes("import"))
+        const IconName = icon + 'Icon';
+        if (line.includes(IconName) && !line.includes("import"))
         {
             return icon;
         }
