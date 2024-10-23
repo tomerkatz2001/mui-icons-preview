@@ -3,6 +3,7 @@
   "displayName": "mui-icons-preview",
   "publisher": "tomerkatz",
   "description": "",
+  "icon": "images/logo.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/tomerkatz2001/mui-icons-preview.git"
