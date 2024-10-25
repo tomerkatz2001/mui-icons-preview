@@ -11,7 +11,7 @@
 
 Here's an example of the extension in action:
 
-![mui-icons-preview](https://github.com/tomerkatz2001/mui-icons-preview/blob/master/images/mui-icons-preview.png)
+![mui-icons-preview](https://raw.githubusercontent.com/tomerkatz2001/mui-icons-preview/master/images/mui-icons-preview.png)
 
 > Tip: Add as many icons as you need and adjust their placement according to your project’s structure!
 
