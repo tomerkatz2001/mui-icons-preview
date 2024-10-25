@@ -35,8 +35,6 @@ This extension contributes the following settings:
 
 - Performance may slow down in large files with many decorations.
 
-- Icons color doesn't change accourding to the editor theme.
-
 ## Release Notes
 
 ### 1.0.0
@@ -46,3 +44,7 @@ Initial release of `mui-icons-preview` with basic functionality for displaying i
 ### 1.0.1
 bug fix:
 removing icons after the code is removed.
+
+### 1.0.2
+bug fix:
+changing the color of the icons according to the theme of the editor.

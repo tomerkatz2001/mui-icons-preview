@@ -3,15 +3,15 @@ import * as path from 'path';
 import { getIconSVGByName } from './svg-creator';
 
 
-export async function getIconSVGAbsulotePath(icon:string, extensionPath:string)
+export async function getIconSVGAbsulotePath(icon:string, color:string,  extensionPath:string)
 {
-    const iconSvg = getIconSVGByName(icon);
+    const iconSvg = getIconSVGByName(icon, color);
     if(!iconSvg)
     {
         console.log(`could not file icon: [${icon}]`);
         return null;
     }
-   return await saveIconFile(iconSvg, icon, extensionPath);
+   return await saveIconFile(iconSvg, `${icon}_${color}`, extensionPath);
 }
 
 async function saveIconFile(iconContent: string, iconName:string, extensionPath:string): Promise<string> {

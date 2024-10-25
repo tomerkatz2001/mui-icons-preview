@@ -4,11 +4,19 @@ import * as vscode from 'vscode';
 import { getLinesIcon, getMUIIconsImports } from './editor_scanning';
 import { getIconSVGAbsulotePath } from './backend';
 import {DecorationsHolder} from './decorationsHolder';
+import { ThemeHolder } from './themeHolder';
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
     const decorationsHolder = new DecorationsHolder();
+    const themeHolder = new ThemeHolder();
+
+    const setThemeColor =() =>{
+        const currentTheme = vscode.workspace.getConfiguration().get<string>('workbench.colorTheme') ?? "Default Dark+";
+        themeHolder.setTheme(currentTheme);
+    };
+
 	const applyIcons = async (editor: vscode.TextEditor | undefined)  => {
         if (!editor) {return;}
 
@@ -29,7 +37,7 @@ export function activate(context: vscode.ExtensionContext) {
                 const decoration = {
                     range: new vscode.Range(new vscode.Position(index, 0), new vscode.Position(index, 0))
                 };
-				const svgPath = await getIconSVGAbsulotePath(lineIcon, context.extensionPath);
+				const svgPath = await getIconSVGAbsulotePath(lineIcon, themeHolder.getIconsColor(), context.extensionPath);
 				if(!svgPath)
 				{
 					continue;
@@ -68,8 +76,17 @@ export function activate(context: vscode.ExtensionContext) {
         }
     });
 
-    // Apply icons on initial activation
-    if (vscode.window.activeTextEditor) {
+    // theme change
+    vscode.workspace.onDidChangeConfiguration((event) => {
+        if (event.affectsConfiguration('workbench.colorTheme')) {
+           setThemeColor();
+           handleTextChange(vscode.window.activeTextEditor);
+        }
+    });
+
+     // initial activation
+     if (vscode.window.activeTextEditor) {
+        setThemeColor();
         handleTextChange(vscode.window.activeTextEditor);
     }
 }
