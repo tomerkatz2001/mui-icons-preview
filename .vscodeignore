@@ -11,3 +11,4 @@ vsc-extension-quickstart.md
 **/.vscode-test.*
 node_modules/**
 mui-icons-preview.png
+icons/** 
