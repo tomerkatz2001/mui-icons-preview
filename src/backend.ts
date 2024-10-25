@@ -15,10 +15,12 @@ export async function getIconSVGAbsulotePath(icon:string, color:string,  extensi
 }
 
 async function saveIconFile(iconContent: string, iconName:string, extensionPath:string): Promise<string> {
+    const LOCAL_ICONS_DIR_NAME = "icons";
     const iconFileName = `${iconName}.svg`; // Define your icon file name
-    const iconFilePath = path.join(extensionPath, iconFileName);
+    const iconFilePath = path.join(extensionPath, LOCAL_ICONS_DIR_NAME, iconFileName);
 
     // Write the content to the file
+    fs.mkdirSync(path.dirname(iconFilePath), { recursive: true });
     fs.writeFileSync(iconFilePath, iconContent, 'utf8');
 
     return iconFilePath;
